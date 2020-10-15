@@ -6,10 +6,14 @@ export default class Actions {
         */
         this.wait = 1500
     }
+    get(element) {
+        cy.wait(this.wait)
+        return cy.get(element)
+    }
 
     click(element) {
         cy.wait(this.wait)
-        cy.get(element).click()
+        cy.get(element).first().click()
         return this
     }
     clear(element) {
@@ -28,6 +32,13 @@ export default class Actions {
         return this
     }
 
-
-
+    assertEqual(actualValue, expectedValue) {
+        expect(actualValue).to.equal(expectedValue)
+        return this
+    }
+    assertNotEqual(actualValue, expectedValue) {
+        expect(actualValue).to.not.equal(expectedValue)
+        return this
+    }
 }
+

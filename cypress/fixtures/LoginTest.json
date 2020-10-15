@@ -1,10 +1,10 @@
-
-  [{
-      "email": "wiasm.dmtour@gmail.com",
-      "password": "123456789"
+[
+  {
+    "email": "wiasm.dmtour@gmail.com",
+    "password": "123456789"
   },
   {
     "email": "wiasm.mtour@gmail.com",
     "password": "123456789"
-}]
-
+  }
+]

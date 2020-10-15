@@ -8,22 +8,22 @@ const loginPage = new LoginPage()
 const homePage = new HomePage()
 const settignPage = new SettingPage()
 
-describe('My First Test', () => {
+describe('Log in Test', () => {
+  before(() => {
+    cy.visit('https://demo.productionready.io/#/login')
+  })
+
   data.forEach((JsonObject) => {
-    before(() => {
-      cy.visit('https://demo.productionready.io/#/login')
-    })
-
-    afterEach(() => {
-    })
-
-    it('valid credential test  ', function () {
+    it('valid credential test ', function () {
       actions.type(loginPage.email, JsonObject.email)
       actions.type(loginPage.password, JsonObject.password)
       actions.click(loginPage.signInButton)
-      actions.assertTitleEqual('Sign in — Conduit')
+      /*
+      test verification
+      */
+      actions.assertTitleEqual('Home — Conduit')
       actions.click(homePage.settingsLink)
-      actions.click(settignPage.clickHereToLogout)
+      actions.click(settignPage.clickHereToLogoutButton)
       actions.click(homePage.signInLink)
     })
   })
