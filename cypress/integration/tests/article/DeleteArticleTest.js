@@ -17,10 +17,10 @@ const profilePage = new ProfilePage()
 const articlePreviewPage = new ArticlePreviewPage()
 
 describe('article test ', () => {
-    data.forEach((JsonObject) => {
-        before(() => {
-            cy.visit('https://demo.productionready.io/#/login')
-            loginPage.logIn()
+    before(() => {
+        cy.visit('https://demo.productionready.io/#/login')
+        loginPage.logIn()
+        data.forEach((JsonObject) => {
             actions.click(homePage.newArticleLink)
             actions.type(newArticlePage.title, JsonObject.title)
             actions.type(newArticlePage.articleAbout, JsonObject.articleAbout)
@@ -28,41 +28,35 @@ describe('article test ', () => {
             actions.type(newArticlePage.tag, JsonObject.tag)
             actions.click(newArticlePage.publishArticleButton)
         })
-
-        it('delete article test  ', function () {
-            actions.click(articlePreviewPage.deleteArticleButton)
-            /*
-            test verification
-            */
-            actions.assertTitleEqual(constant.HOME_PAGE)
-            actions.click(homePage.profileLink)
-            actions.get(profilePage.profileLink).then(($value) => {
-                const normalizeText = ($value) => $value.replace(/\s/g, '')
-                var userName = normalizeText($value.text())
-                actions.assertTitleEqual('@' + userName + ' — Conduit')
-            })
-            /*
-            to insure that the element not exist in the DOM
-            */
-            cy.get(profilePage.articleTitle).should('not.contain', JsonObject.title)
-
-            //cy.get(profilePage.articleTitle).contains(JsonObject.title)
-            //cy.get(profilePage.articleTitle).should('not.exist');
-            /*
-            to insure that the first article not have the same title of deleted article
-            */
-            actions.get(profilePage.articleTitle).first().then(($value) => {
-                const text = $value.text()
-                actions.assertNotEqual(text, JsonObject.title)
-            })
-            actions.click(profilePage.homeLink)
-            actions.click(homePage.globalFeedLink)
-
-            cy.get(profilePage.articleTitle).should('not.contain', JsonObject.title)
-            actions.get(globalFeedPage.articleTitle).first().then(($value) => {
-                const text = $value.text()
-                actions.assertNotEqual(text, JsonObject.title)
-            })
-        })
     })
+    after(() => {
+        actions.click(homePage.profileLink)
+        actions.click(profilePage.articleTitle)
+        actions.click(articlePreviewPage.deleteArticleButton)
+    })
+
+    it('delete article test  ', function () {
+        actions.click(articlePreviewPage.deleteArticleButton)
+        /*
+        test verification
+        */
+        actions.assertTitleEqual(constant.HOME_PAGE)
+        actions.click(homePage.profileLink)
+        actions.get(profilePage.profileLink).then(($value) => {
+            const normalizeText = ($value) => $value.trim()
+            var userName = normalizeText($value.text())
+            actions.assertTitleEqual('@' + userName + ' — Conduit')
+        })
+        /*
+        to insure that the element not exist in the profile Page DOM
+        */
+        actions.isNotContain(profilePage.articleTitle,data[1].title)
+        actions.click(profilePage.homeLink)
+        actions.click(homePage.globalFeedLink)
+        /*
+        to insure that the element not exist in the global Feed Page DOM
+        */
+        actions.get(globalFeedPage.articleTitle).should('not.contain', data[1].title)
+    })
+
 })

@@ -2,7 +2,7 @@
 export default class Actions {
 
     constructor() {
-        this.wait = 1000
+        this.wait = 1500
     }
     get(element) {
         // cy.wait(this.wait)
@@ -58,6 +58,15 @@ export default class Actions {
         cy.wait(this.wait)
         should.not.exist(expectedValue)
         expect(expectedValue).not.to.exist
+        return this
+    }
+    isVisible(element) {
+        cy.get(element).should('be.visible')
+        return this
+    }
+
+    isNotContain(element,text) {
+        cy.get(element).should('not.contain', text)
         return this
     }
 }

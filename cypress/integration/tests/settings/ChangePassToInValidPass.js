@@ -35,10 +35,17 @@ data.forEach((JsonObject) => {
         it('ChangePassToInValidPass test ', function () {
             actions.type(settingsPage.password, JsonObject.newPassword)
             actions.click(settingsPage.updateSettingsButton)
-            actions.assertTitleEqual(constant.SETTINGS_PAGE)
             /*
              test verification
              */
+            actions.assertTitleEqual(constant.SETTINGS_PAGE)
+            actions.isVisible(settingsPage.errorMessage)
+            actions.get(settingsPage.errorMessage).then(($text) => {
+                
+                const normalizeText = ($text) => $text.trim()
+                var message = normalizeText($text.text())
+                actions.assertEqual(message,JsonObject.expectedErrorMessage)
+            })   
             actions.click(settingsPage.clickHereToLogoutButton)
             actions.click(homePage.signInLink)
             loginPage.logInn(JsonObject.email, JsonObject.newPassword)

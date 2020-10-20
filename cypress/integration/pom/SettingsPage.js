@@ -8,6 +8,7 @@ class SettingPage {
         this.password = 'input[type=\'password\']'
         this.updateSettingsButton = 'button[type=\'submit\']'
         this.clickHereToLogoutButton = 'button[ng-click=\'$ctrl.logout()\']'
+        this.errorMessage = 'li[ng-repeat=\'error in errors\']'
     }
 }
 export default SettingPage
