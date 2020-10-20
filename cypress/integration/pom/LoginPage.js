@@ -1,6 +1,7 @@
 import Actions from '../infra/Actions'
 const actions = new Actions()
 class LoginPage {
+    
     constructor() {
         this.email = 'input[type=email]'
         this.password = 'input[type=password]'
@@ -16,6 +17,7 @@ class LoginPage {
     logInn(email, password) {
         actions.type(this.email, email)
         actions.type(this.password, password)
+        actions.click(this.signInButton)
         return this
     }
 }

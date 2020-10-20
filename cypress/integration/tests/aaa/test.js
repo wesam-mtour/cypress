@@ -10,23 +10,35 @@ const loginPage = new LoginPage()
 const homePage = new HomePage()
 const settignPage = new SettingPage()
 
-data.forEach((JsonObject) => {
-  describe('LoginTest', () => {
+describe('aaaaa', () => {
     before(() => {
       cy.visit('https://demo.productionready.io/#/login')
     })
+    it('abc ', function () {
+        cy.wait(2000)  
+  
+      })
 
-    it('valid credential test ', function () {
-      actions.type(loginPage.email, JsonObject.email)
-      actions.type(loginPage.password, JsonObject.password)
-      actions.click(loginPage.signInButton)
-      /*
-      test verification
-      */
-      actions.assertTitleEqual(constant.HOME_PAGE)
-      actions.click(homePage.settingsLink)
-      actions.click(settignPage.clickHereToLogoutButton)
-      actions.click(homePage.signInLink)
+    it.skip('ab ', function () {
+
+        cy.wait(2000)  
     })
+
   })
-})
+
+  describe('aaaa', () => {
+    before(() => {
+      cy.visit('https://demo.productionready.io/#/login')
+    })
+    it('ab ', function () {
+        cy.wait(2000)  
+  
+      })
+
+    it('a ', function () {
+
+        cy.wait(2000)  
+    })
+
+  })
+  
