@@ -29,10 +29,10 @@ describe('article test ', () => {
             actions.click(newArticlePage.publishArticleButton)
         })
     })
-    after(() => {
-        actions.click(homePage.profileLink)
-        actions.click(profilePage.articleTitle)
-        actions.click(articlePreviewPage.deleteArticleButton)
+    afterEach(() => {
+        actions.forceClick(homePage.profileLink)
+        actions.forceClick(profilePage.articleTitle)
+        actions.forceClick(articlePreviewPage.deleteArticleButton)
     })
 
     it('delete article test  ', function () {
@@ -41,22 +41,24 @@ describe('article test ', () => {
         test verification
         */
         actions.assertTitleEqual(constant.HOME_PAGE)
+        // console.log(actions.ccc(homePage.profileLink))
+        // cy.wait(5000)
         actions.click(homePage.profileLink)
         actions.get(profilePage.profileLink).then(($value) => {
-            const normalizeText = ($value) => $value.trim()
+            const normalizeText = ($string) => $string.trim()
             var userName = normalizeText($value.text())
             actions.assertTitleEqual('@' + userName + ' — Conduit')
         })
         /*
         to insure that the element not exist in the profile Page DOM
         */
-        actions.isNotContain(profilePage.articleTitle,data[1].title)
+        actions.isNotContain(profilePage.articleTitle, data[1].title)
         actions.click(profilePage.homeLink)
         actions.click(homePage.globalFeedLink)
         /*
         to insure that the element not exist in the global Feed Page DOM
         */
-        actions.get(globalFeedPage.articleTitle).should('not.contain', data[1].title)
+        actions.isNotContain(globalFeedPage.articleTitle, data[1].title)
     })
 
 })

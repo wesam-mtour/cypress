@@ -13,7 +13,7 @@ const settingsPage = new SettingsPage()
 const profilePage = new ProfilePage()
 
 data.forEach((JsonObject) => {
-    describe('settings test ', () => {
+    describe('settings test', () => {
         before(() => {
             cy.visit('https://demo.productionready.io/#/login')
         })
@@ -41,11 +41,10 @@ data.forEach((JsonObject) => {
             actions.assertTitleEqual(constant.SETTINGS_PAGE)
             actions.isVisible(settingsPage.errorMessage)
             actions.get(settingsPage.errorMessage).then(($text) => {
-                
-                const normalizeText = ($text) => $text.trim()
+                const normalizeText = ($string) => $string.trim()
                 var message = normalizeText($text.text())
-                actions.assertEqual(message,JsonObject.expectedErrorMessage)
-            })   
+                actions.assertEqual(message, JsonObject.expectedErrorMessage)
+            })
             actions.click(settingsPage.clickHereToLogoutButton)
             actions.click(homePage.signInLink)
             loginPage.logInn(JsonObject.email, JsonObject.newPassword)

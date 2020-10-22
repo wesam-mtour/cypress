@@ -16,6 +16,14 @@ data.forEach((JsonObject) => {
       cy.visit('https://demo.productionready.io/#/login')
     })
 
+    afterEach(() => {
+      loginPage.logIn()
+      actions.forceClick(homePage.settingsLink)
+      actions.forceClick(settignPage.clickHereToLogoutButton)
+      actions.forceClick(homePage.signInLink)
+    })
+
+
     it('valid credential test ', function () {
       actions.type(loginPage.email, JsonObject.email)
       actions.type(loginPage.password, JsonObject.password)
@@ -23,10 +31,8 @@ data.forEach((JsonObject) => {
       /*
       test verification
       */
-      actions.assertTitleEqual(constant.HOME_PAGE)
-      actions.click(homePage.settingsLink)
-      actions.click(settignPage.clickHereToLogoutButton)
-      actions.click(homePage.signInLink)
+      actions.assertTitleEqual(constant.SIGN_IN_PAGE)
+
     })
   })
 })

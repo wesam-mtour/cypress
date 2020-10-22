@@ -1,7 +1,7 @@
 [
     {
         "email": "wiasm.mtour@gmail.com",
-        "newPassword": "12",
+        "newPassword": "123456789",
         "expectedErrorMessage": "password is too short (minimum is 8 characters)"
     },
     {

@@ -65,9 +65,16 @@ export default class Actions {
         return this
     }
 
-    isNotContain(element,text) {
+    isNotContain(element, text) {
         cy.get(element).should('not.contain', text)
         return this
+    }
+
+    ccc(element) {
+        cy.get(element).then(($text) => {
+            const normalizeText = ($string) => $string.trim()
+            return normalizeText($text.text())
+        })
     }
 }
 

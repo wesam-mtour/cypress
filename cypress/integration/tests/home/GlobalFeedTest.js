@@ -19,7 +19,7 @@ describe('article test ', () => {
     it('like article test  ', function () {
         actions.get(globalFeedPage.likeButton).each(($item, index) => {
             actions.get($item).then(($value) => {
-                var normalizeText = ($value) => $value.trim()
+                var normalizeText = ($string) => $string.trim()
                 var oldValue = normalizeText($value.text())
                 console.log("oldValue")
                 console.log(oldValue)
@@ -27,7 +27,7 @@ describe('article test ', () => {
                 actions.click($item)
 
                 actions.get($item).then(($value) => {
-                    var normalizeText = ($value) => $value.trim()
+                    var normalizeText = ($string) => $string.trim()
                     const newValue = normalizeText($value.text())
                     console.log("new after")
                     console.log(newValue)
